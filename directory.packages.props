@@ -1,0 +1,76 @@
+<Project>
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.0" />
+        <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="1.0.0" />
+        <PackageVersion Include="Rocket.Surgery.MSBuild.CI" Version="1.1.0" />
+        <PackageVersion Include="Rocket.Surgery.MSBuild.GitVersion" Version="1.1.0" />
+        <PackageVersion Include="Rocket.Surgery.MSBuild.JetBrains.Annotations" Version="1.1.0" Condition="'$(MSBuildProjectName)'!='.build'" />
+        <PackageVersion Include="Rocket.Surgery.MSBuild.Metadata" Version="1.1.0" />
+        <PackageVersion Include="Rocket.Surgery.MSBuild.SourceLink" Version="1.1.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="GitVersion.Tool" Version="5.9.0" />
+        <PackageVersion Include="docfx.console" Version="2.59.0" />
+        <PackageVersion Include="Nuke.Common" Version="6.1.2" />
+        <PackageVersion Include="NuGet.CommandLine" Version="6.1.0" />
+        <PackageVersion Include="JetBrains.ReSharper.GlobalTools" Version="2020.3.2" />
+        <PackageVersion Include="ReportGenerator" Version="5.1.0" />
+        <PackageVersion Include="Rocket.Surgery.Nuke" Version="0.17.19" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageVersion Include="Microsoft.Extensions.Http" Version="5.0.0" />
+        <PackageVersion Include="System.Net.Http.Json" Version="6.0.0" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="DynamicData" Version="7.9.7" />
+        <PackageVersion Include="MediatR" Version="11.1.0" />
+        <PackageVersion Include="MediatR.Contracts" Version="1.0.1" />
+        <PackageVersion Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+        <PackageVersion Include="Microsoft.AppCenter.Analytics" Version="2.5.0" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration" Version="3.1.10" />
+        <PackageVersion Include="Microsoft.Extensions.Configuration.Json" Version="3.1.10" />
+        <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging.Abstractions" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Logging" Version="6.0.1" />
+        <PackageVersion Include="Microsoft.Extensions.Http" Version="6.0.0" />
+        <PackageVersion Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.10" />
+        <PackageVersion Include="NodaTime" Version="3.1.0" />
+        <PackageVersion Include="Humanizer" Version="2.7.9" />
+        <PackageVersion Include="ReactiveUI" Version="13.3.2" />
+        <PackageVersion Include="ReactiveUI.Fody" Version="13.3.2" />
+        <PackageVersion Include="ReactiveUI.XamForms" Version="13.3.2" />
+        <PackageVersion Include="ReactiveMarbles.Mvvm" Version="1.0.46" />
+        <PackageVersion Include="ReactiveMarbles.PropertyChanged" Version="2.0.27" />
+        <PackageVersion Include="ReactiveMarbles.ObservableEvents.SourceGenerator" Version="1.1.4">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageVersion>
+        <PackageVersion Include="Rocket.Surgery.Reactive.Extensions" Version="11.4.2" />
+        <PackageVersion Include="Rocket.Surgery.Task.Extensions" Version="11.4.2" />
+        <PackageVersion Include="Splat" Version="11.1.1" />
+        <PackageVersion Include="Splat.Serilog" Version="11.1.1" />
+        <PackageVersion Include="Splat.Microsoft.Extensions.Logging" Version="11.1.1" />
+        <PackageVersion Include="Stateless" Version="5.12.0" />
+        <PackageVersion Include="System.Reactive" Version="5.0.0" />
+        <PackageVersion Include="System.Runtime.InteropServices.WindowsRuntime" Version="4.3.0" />
+        <PackageVersion Include="System.Threading.Tasks.Extensions" Version="4.5.4" />
+        <PackageVersion Include="TypeNameFormatter.Sources" Version="1.1.1" />
+        <PackageVersion Include="Xamarin.Essentials" Version="1.7.1" />
+        <PackageVersion Include="Xamarin.Essentials.Interfaces" Version="1.7.1" />
+        <PackageVersion Include="Xamarin.Forms" Version="5.0.0.2401" />
+    </ItemGroup>
+    <ItemGroup>
+        <PackageVersion Include="coverlet.msbuild" Version="2.5.1" />
+        <PackageVersion Include="FluentAssertions" Version="5.6.0" />
+        <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.2.0" />
+        <PackageVersion Include="Microsoft.Reactive.Testing" Version="5.0.0" />
+        <PackageVersion Include="NSubstitute" Version="4.2.1" />
+        <PackageVersion Include="ReactiveUI.Testing" Version="13.3.2" />
+        <PackageVersion Include="Rocket.Surgery.Extensions.Testing.Fixtures" Version="7.0.2" />
+        <PackageVersion Include="xunit" Version="2.4.1" />
+        <PackageVersion Include="xunit.runner.visualstudio" Version="2.4.1" />
+        <PackageVersion Include="XunitXml.TestLogger" Version="2.1.26" />
+    </ItemGroup>
+</Project>

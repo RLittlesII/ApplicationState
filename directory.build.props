@@ -1,0 +1,13 @@
+<Project>
+    <PropertyGroup>
+        <Authors>Rodney Littles, II</Authors>
+        <Copyright>Copyright Rodney Littles, II© $([System.DateTime]::Now.ToString('yyyy'))</Copyright>
+        <RepositoryType>git</RepositoryType>
+        <LangVersion>latest</LangVersion>
+        <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+        <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+        <Features>strict</Features>
+        <Nullable>enable</Nullable>
+        <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    </PropertyGroup>
+</Project>

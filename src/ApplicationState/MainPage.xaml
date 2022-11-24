@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<xamForms:ReactiveContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+                              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                              xmlns:local="clr-namespace:ApplicationState"
+                              xmlns:domain="clr-namespace:ApplicationState.Machine;assembly=ApplicationState.Machine"
+                              xmlns:xamForms="clr-namespace:ReactiveUI.XamForms;assembly=ReactiveUI.XamForms"
+                              x:Class="ApplicationState.MainPage"
+                              x:DataType="local:MainViewModel"
+                              x:TypeArguments="local:MainViewModel">
+    <ContentPage.Resources>
+        <Style x:Key="StateButton" TargetType="Button">
+            <Setter Property="TextColor" Value="Black" />
+            <Setter Property="FontSize" Value="Large" />
+            <Setter Property="BorderColor" Value="Black" />
+            <Setter Property="BorderWidth" Value="1" />
+            <Setter Property="WidthRequest" Value="192" />
+        </Style>
+    </ContentPage.Resources>
+
+    <StackLayout HorizontalOptions="CenterAndExpand"
+                 VerticalOptions="CenterAndExpand">
+        <Button Text="Initialize"
+                Command="{Binding Initialize}"
+                Style="{StaticResource StateButton}" />
+        <Button Text="Start" Command="{Binding Start}"
+                Style="{StaticResource StateButton}" />
+        <Button Text="Stop" Command="{Binding Stop}"
+                Style="{StaticResource StateButton}" />
+        <Button Text="Offline" Command="{Binding Offline}"
+                Style="{StaticResource StateButton}" />
+        <Button Text="Online" Command="{Binding Online}"
+                Style="{StaticResource StateButton}"/>
+    </StackLayout>
+
+    <xamForms:ReactiveContentPage.Triggers>
+        <DataTrigger TargetType="ContentPage" Binding="{Binding CurrentState}" Value="{x:Static domain:ApplicationState.Initial}">
+            <Setter Property="BackgroundColor" Value="Goldenrod" />
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage" Binding="{Binding CurrentState}" Value="{x:Static domain:ApplicationState.Foreground}">
+            <Setter Property="BackgroundColor" Value="DeepSkyBlue" />
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage" Binding="{Binding CurrentState}" Value="{x:Static domain:ApplicationState.Background}">
+            <Setter Property="BackgroundColor" Value="MediumPurple" />
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage" Binding="{Binding CurrentState}" Value="{x:Static domain:ApplicationState.Offline}">
+            <Setter Property="BackgroundColor" Value="DarkRed" />
+        </DataTrigger>
+        <DataTrigger TargetType="ContentPage" Binding="{Binding CurrentState}" Value="{x:Static domain:ApplicationState.Online}">
+            <Setter Property="BackgroundColor" Value="LimeGreen" />
+        </DataTrigger>
+    </xamForms:ReactiveContentPage.Triggers>
+</xamForms:ReactiveContentPage>
