@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-
 namespace ApplicationState.Machine.Tests.State
 {
     internal class BackgroundStateTestData : IEnumerable<object[]>

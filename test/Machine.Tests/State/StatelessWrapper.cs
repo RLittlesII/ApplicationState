@@ -1,8 +1,3 @@
-using System;
-using System.Reactive.Linq;
-using System.Reactive.Subjects;
-using Stateless;
-
 namespace ApplicationState.Machine.Tests.State
 {
     public class StatelessWrapper<TMachine, TState, TTrigger>

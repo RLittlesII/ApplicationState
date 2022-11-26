@@ -16,7 +16,21 @@ namespace ApplicationState.Machine
 
         public IObservable<ApplicationState> StateChanged { get; private set; } = Observable.Empty<ApplicationState>();
 
-        public IObservable<string> UnhandledExceptions { get; set; } = Observable.Empty<string>();
+        public IObservable<string> UnhandledExceptions { get; private set; } = Observable.Empty<string>();
+
+        /// <summary>
+        /// Connect the application.
+        /// </summary>
+        /// <param name="event">The connect event.</param>
+        public void Connect(GainedSignalEvent @event) =>
+            Fire(_connect, @event);
+
+        /// <summary>
+        /// Disconnect the application.
+        /// </summary>
+        /// <param name="event">The disconnect event.</param>
+        public void Disconnect(LostSignalEvent @event) =>
+            Fire(_disconnect, @event);
 
         /// <summary>
         /// Initialize the application.
@@ -46,20 +60,6 @@ namespace ApplicationState.Machine
         public void Stop(StopApplicationEvent @event) =>
             Fire(_stop, @event);
 
-        /// <summary>
-        /// Connect the application.
-        /// </summary>
-        /// <param name="event">The connect event.</param>
-        public void Connect(GainedSignalEvent @event) =>
-            Fire(_connect, @event);
-
-        /// <summary>
-        /// Disconnect the application.
-        /// </summary>
-        /// <param name="event">The disconnect event.</param>
-        public void Disconnect(LostSignalEvent @event) =>
-            Fire(_disconnect, @event);
-
         /// <inheritdoc />
         public void Dispose() => _garbage.Dispose();
 
@@ -67,6 +67,7 @@ namespace ApplicationState.Machine
         {
             var stateChange = new Subject<ApplicationState>().DisposeWith(_garbage);
             var unhandledExceptions = new Subject<string>().DisposeWith(_garbage);
+
             _start = SetTriggerParameters<ApplicationStateEvent>(ApplicationEventTrigger.Start);
             _stop = SetTriggerParameters<StopApplicationEvent>(ApplicationEventTrigger.Stop);
             _connect = SetTriggerParameters<GainedSignalEvent>(ApplicationEventTrigger.Connected);
@@ -130,6 +131,7 @@ namespace ApplicationState.Machine
                     .AsObservable()
                     .Publish()
                     .RefCount();
+
             UnhandledExceptions =
                 unhandledExceptions
                     .AsObservable()
@@ -144,7 +146,7 @@ namespace ApplicationState.Machine
 
             void PublishStateEvent(ApplicationStateEvent stateEvent)
             {
-                using var _ = applicationStateMediator.Notify(stateEvent).Subscribe();
+                using var _ = applicationStateMediator.Notify(stateEvent).Finally(() => Console.WriteLine(stateEvent.ToString())).Subscribe();
             }
 
             void TraceTransition(Transition _) => Console.WriteLine($"{_}");

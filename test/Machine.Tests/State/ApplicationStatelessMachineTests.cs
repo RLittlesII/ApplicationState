@@ -1,11 +1,5 @@
-using System;
-using System.Reactive;
-using System.Reactive.Linq;
 using ApplicationState.Machine.Events;
 using ApplicationState.Mediator;
-using FluentAssertions;
-using NSubstitute;
-using Xunit;
 
 namespace ApplicationState.Machine.Tests.State
 {

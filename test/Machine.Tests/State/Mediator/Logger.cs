@@ -1,5 +1,3 @@
-using System.Collections.Generic;
-
 namespace ApplicationState.Machine.Tests.State.Mediator
 {
     public class Logger

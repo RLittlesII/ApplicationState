@@ -1,7 +1,4 @@
 using ApplicationState.Mediator;
-using Microsoft.Extensions.Logging;
-using NSubstitute;
-using Rocket.Surgery.Extensions.Testing.Fixtures;
 
 namespace ApplicationState.Machine.Tests.State
 {

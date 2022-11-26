@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
@@ -27,7 +26,7 @@ namespace ApplicationState
                 .AddSingleton<ApplicationStateMonitor>()
                 .AddSingleton<IApplicationEvents, ApplicationEvents>()
                 .AddSingleton<IApplicationTriggers>(_ => this)
-                .AddSingleton<IApplicationConnectivity, ApplicationConnectivity>()
+                .AddSingleton<INetworkState, NetworkState>()
                 .AddSingleton<ApplicationStatelessMachine>()
                 .AddTransient(typeof(IApplicationStateHandler<InitializeApplicationEvent>), typeof(ApplicationStateHandler<InitializeApplicationEvent>))
                 .AddTransient(typeof(IApplicationStateHandler<ResumeApplicationEvent>), typeof(ApplicationStateHandler<ResumeApplicationEvent>))
@@ -71,14 +70,11 @@ namespace ApplicationState
         private readonly Subject<Unit> _stop = new Subject<Unit>();
     }
 
-    public class ApplicationConnectivity : IApplicationConnectivity
+    public class NetworkState : INetworkState
     {
-        public IDisposable Subscribe(IObserver<ConnectivityChangedEvent> observer)
+        public IDisposable Subscribe(IObserver<NetworkStateChangedEvent> observer)
         {
             return Disposable.Empty;
         }
-
-        public NetworkAccess NetworkAccess { get; }
-        public IReadOnlyList<ConnectionProfile> Profiles { get; }
     }
 }

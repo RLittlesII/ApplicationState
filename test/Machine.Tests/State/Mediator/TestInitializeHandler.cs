@@ -1,6 +1,3 @@
-using System;
-using System.Reactive;
-using System.Reactive.Linq;
 using ApplicationState.Machine.Events;
 using ApplicationState.Machine.Handlers;
 using ApplicationState.Mediator;

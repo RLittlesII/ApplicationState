@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Reactive.Linq;
-using System.Reactive.Threading.Tasks;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -41,7 +40,7 @@ namespace ApplicationState.Mediator
 
         /// <inheritdoc />
         IObservable<System.Reactive.Unit> IApplicationStateMediator.Notify<TNotification>(TNotification notification) =>
-            Observable.Create<System.Reactive.Unit>(observer => _mediator.Publish(notification).ToObservable().Subscribe(observer));
+            Observable.Create<System.Reactive.Unit>(observer => Observable.FromAsync(token => _mediator.Publish(notification, token)).Subscribe(observer));
 
         private readonly IMediator _mediator;
     }

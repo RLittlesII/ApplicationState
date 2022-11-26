@@ -9,7 +9,7 @@ namespace ApplicationState.Machine
     {
         public ApplicationStateMonitor(
             IApplicationEvents applicationEvents,
-            IApplicationConnectivity applicationConnectivity,
+            INetworkState networkState,
             ApplicationStatelessMachine statelessMachine)
         {
             applicationEvents
@@ -27,13 +27,13 @@ namespace ApplicationState.Machine
                .Subscribe(applicationEvent => statelessMachine.Stop(applicationEvent))
                .DisposeWith(Garbage);
 
-            applicationConnectivity
+            networkState
                .WhereHasSignal()
                .Select(x => new GainedSignalEvent(new Uri("//NavigationPage")))
                .Subscribe(connectivityChangedEvent => statelessMachine.Connect(connectivityChangedEvent))
                .DisposeWith(Garbage);
 
-            applicationConnectivity
+            networkState
                .WhereHasNoSignal()
                .Select(x => new LostSignalEvent(new Uri("//NavigationPage")))
                .Subscribe(connectivityChangedEvent => statelessMachine.Disconnect(connectivityChangedEvent))

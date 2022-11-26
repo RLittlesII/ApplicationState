@@ -1,11 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Reactive.Subjects;
 using ApplicationState.Machine.Events;
-using FluentAssertions;
-using NSubstitute;
-using Rocket.Surgery.Extensions.Testing.Fixtures;
-using Xunit;
 
 namespace ApplicationState.Machine.Tests.State
 {
@@ -31,12 +24,12 @@ namespace ApplicationState.Machine.Tests.State
         {
             // Given
             ApplicationState? result = null;
-            var connectivity = new ApplicationConnectivityMock();
+            var connectivity = new NetworkStateMock();
             ApplicationStateMonitor sut = new ApplicationStateMachineFixture().WithConnectivity(connectivity);
             sut.StateChanged.Subscribe(actual => result = actual);
 
             // When
-            connectivity.Notify(new ConnectivityChangedEvent(NetworkAccess.Internet, ConnectionProfile.WiFi));
+            connectivity.Notify(new NetworkStateChangedEvent(NetworkAccess.Internet, ConnectionProfile.WiFi));
 
             // Then
             result
@@ -53,7 +46,7 @@ namespace ApplicationState.Machine.Tests.State
         {
             // Given
             ApplicationState? result = null;
-            var connectivity = new ApplicationConnectivityMock();
+            var connectivity = new NetworkStateMock();
             ApplicationStateMonitor sut = new ApplicationStateMachineFixture().WithConnectivity(connectivity);
             using var _ = sut.StateChanged.Subscribe(actual => result = actual);
 
@@ -75,24 +68,20 @@ namespace ApplicationState.Machine.Tests.State
     {
         public static implicit operator ApplicationStateMonitor(ApplicationStateMachineFixture fixture) => fixture.Build();
         public ApplicationStateMachineFixture WithEvents(IApplicationEvents applicationEvents) => this.With(ref _applicationEvents, applicationEvents);
-        public ApplicationStateMachineFixture WithConnectivity(IApplicationConnectivity applicationConnectivity) => this.With(ref _applicationConnectivity, applicationConnectivity);
-        private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationEvents, _applicationConnectivity, _applicationStatelessMachine);
+        public ApplicationStateMachineFixture WithConnectivity(INetworkState networkState) => this.With(ref _networkState, networkState);
+        private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationEvents, _networkState, _applicationStatelessMachine);
 
         private IApplicationEvents _applicationEvents = Substitute.For<IApplicationEvents>();
-        private IApplicationConnectivity _applicationConnectivity = Substitute.For<IApplicationConnectivity>();
+        private INetworkState _networkState = Substitute.For<INetworkState>();
         private ApplicationStatelessMachine _applicationStatelessMachine = new ApplicationStatelessMachineFixture();
     }
 
-    public class ApplicationConnectivityMock : IApplicationConnectivity
+    public class NetworkStateMock : INetworkState
     {
-        public NetworkAccess NetworkAccess { get; }
+        public void Notify(NetworkStateChangedEvent args) => _connectivityChanged.OnNext(args);
 
-        public IReadOnlyList<ConnectionProfile> Profiles { get; }
+        public IDisposable Subscribe(IObserver<NetworkStateChangedEvent> observer) => _connectivityChanged.Subscribe(observer);
 
-        public void Notify(ConnectivityChangedEvent args) => _connectivityChanged.OnNext(args);
-
-        public IDisposable Subscribe(IObserver<ConnectivityChangedEvent> observer) => _connectivityChanged.Subscribe(observer);
-
-        private readonly Subject<ConnectivityChangedEvent> _connectivityChanged = new Subject<ConnectivityChangedEvent>();
+        private readonly Subject<NetworkStateChangedEvent> _connectivityChanged = new Subject<NetworkStateChangedEvent>();
     }
 }

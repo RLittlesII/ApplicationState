@@ -1,10 +1,5 @@
-using System;
 using ApplicationState.Machine.Events;
 using ApplicationState.Mediator;
-using FluentAssertions;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
-using Xunit;
 
 namespace ApplicationState.Machine.Tests.State.Mediator
 {

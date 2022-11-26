@@ -12,16 +12,18 @@ namespace ApplicationState
     {
         public MainViewModel(ApplicationStatelessMachine stateMachine)
         {
+            var navigationPage = new Uri("//NavigationPage");
+
             Initialize = ReactiveCommand.Create(() =>
-                stateMachine.Initialize(new InitializeApplicationEvent(new Uri("//NavigationPage"))));
-            Start = ReactiveCommand.Create(() =>
-                stateMachine.Start(new StartApplicationEvent(new Uri("//NavigationPage"))));
-            Stop = ReactiveCommand.Create(() =>
-                stateMachine.Stop(new StopApplicationEvent(new Uri("//NavigationPage"))));
+                stateMachine.Initialize(new InitializeApplicationEvent(navigationPage)));
             Offline = ReactiveCommand.Create(() =>
-                stateMachine.Disconnect(new LostSignalEvent(new Uri("//NavigationPage"))));
+                stateMachine.Disconnect(new LostSignalEvent(navigationPage)));
             Online = ReactiveCommand.Create(() =>
-                stateMachine.Connect(new GainedSignalEvent(new Uri("//NavigationPage"))));
+                stateMachine.Connect(new GainedSignalEvent(navigationPage)));
+            Start = ReactiveCommand.Create(() =>
+                stateMachine.Start(new StartApplicationEvent(navigationPage)));
+            Stop = ReactiveCommand.Create(() =>
+                stateMachine.Stop(new StopApplicationEvent(navigationPage)));
 
             stateMachine
                 .StateChanged
@@ -36,12 +38,11 @@ namespace ApplicationState
 
 
         public ReactiveCommand<Unit, Unit> Initialize { get; }
-        public ReactiveCommand<Unit, Unit> Start { get; }
-        public ReactiveCommand<Unit, Unit> Stop { get; }
         public ReactiveCommand<Unit, Unit> Offline { get; }
         public ReactiveCommand<Unit, Unit> Online { get; }
+        public ReactiveCommand<Unit, Unit> Start { get; }
+        public ReactiveCommand<Unit, Unit> Stop { get; }
 
         public Machine.ApplicationState CurrentState { [ObservableAsProperty] get; }
-        public string Exceptions { [ObservableAsProperty]  get; }
     }
 }

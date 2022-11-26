@@ -5,9 +5,9 @@ using ApplicationState.Mediator;
 
 namespace ApplicationState.Machine.Events
 {
-    public class ConnectivityChangedEvent : EventArgs, IStateEvent
+    public class NetworkStateChangedEvent : EventArgs, IStateEvent
     {
-        public ConnectivityChangedEvent(NetworkAccess access, params ConnectionProfile[]  connectionProfiles)
+        public NetworkStateChangedEvent(NetworkAccess access, params ConnectionProfile[]  connectionProfiles)
         {
             NetworkAccess = access;
             ConnectionProfiles = connectionProfiles.ToList().AsReadOnly();

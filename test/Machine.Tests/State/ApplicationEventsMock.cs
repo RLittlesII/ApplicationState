@@ -1,5 +1,3 @@
-using System;
-using System.Reactive.Subjects;
 using ApplicationState.Machine.Events;
 
 namespace ApplicationState.Machine.Tests.State
