@@ -2,7 +2,7 @@ using ApplicationState.Machine.Events;
 
 namespace ApplicationState.Machine.Tests.State
 {
-    internal class ApplicationEventsMock : IApplicationEvents
+    internal class ApplicationStateMock : IApplicationState
     {
         public void Notify(ApplicationStateEvent stateEvent) => _applicationStateEvents.OnNext(stateEvent);
 

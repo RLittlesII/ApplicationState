@@ -9,7 +9,7 @@ namespace ApplicationState.Machine.Tests.State
         {
             // Given
             ApplicationState? result = null;
-            var events = new ApplicationEventsMock();
+            var events = new ApplicationStateMock();
             ApplicationStateMonitor sut = new ApplicationStateMachineFixture().WithEvents(events);
             sut.StateChanged.Subscribe(actual => result = actual);
             // When
@@ -67,21 +67,12 @@ namespace ApplicationState.Machine.Tests.State
     internal sealed class ApplicationStateMachineFixture : ITestFixtureBuilder
     {
         public static implicit operator ApplicationStateMonitor(ApplicationStateMachineFixture fixture) => fixture.Build();
-        public ApplicationStateMachineFixture WithEvents(IApplicationEvents applicationEvents) => this.With(ref _applicationEvents, applicationEvents);
+        public ApplicationStateMachineFixture WithEvents(IApplicationState applicationState) => this.With(ref _applicationState, applicationState);
         public ApplicationStateMachineFixture WithConnectivity(INetworkState networkState) => this.With(ref _networkState, networkState);
-        private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationEvents, _networkState, _applicationStatelessMachine);
+        private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationState, _networkState, _applicationStatelessMachine);
 
-        private IApplicationEvents _applicationEvents = Substitute.For<IApplicationEvents>();
+        private IApplicationState _applicationState = Substitute.For<IApplicationState>();
         private INetworkState _networkState = Substitute.For<INetworkState>();
         private ApplicationStatelessMachine _applicationStatelessMachine = new ApplicationStatelessMachineFixture();
-    }
-
-    public class NetworkStateMock : INetworkState
-    {
-        public void Notify(NetworkStateChangedEvent args) => _connectivityChanged.OnNext(args);
-
-        public IDisposable Subscribe(IObserver<NetworkStateChangedEvent> observer) => _connectivityChanged.Subscribe(observer);
-
-        private readonly Subject<NetworkStateChangedEvent> _connectivityChanged = new Subject<NetworkStateChangedEvent>();
     }
 }

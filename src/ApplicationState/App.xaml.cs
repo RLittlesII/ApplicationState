@@ -24,9 +24,8 @@ namespace ApplicationState
 
             services
                 .AddSingleton<ApplicationStateMonitor>()
-                .AddSingleton<IApplicationEvents, ApplicationEvents>()
+                .AddSingleton<IApplicationState, Machine.Events.ApplicationState>()
                 .AddSingleton<IApplicationTriggers>(_ => this)
-                .AddSingleton<INetworkState, NetworkState>()
                 .AddSingleton<ApplicationStatelessMachine>()
                 .AddTransient(typeof(IApplicationStateHandler<InitializeApplicationEvent>), typeof(ApplicationStateHandler<InitializeApplicationEvent>))
                 .AddTransient(typeof(IApplicationStateHandler<ResumeApplicationEvent>), typeof(ApplicationStateHandler<ResumeApplicationEvent>))
@@ -68,13 +67,5 @@ namespace ApplicationState
         private readonly AsyncSubject<Unit> _initialize = new AsyncSubject<Unit>();
         private readonly Subject<Unit> _start = new Subject<Unit>();
         private readonly Subject<Unit> _stop = new Subject<Unit>();
-    }
-
-    public class NetworkState : INetworkState
-    {
-        public IDisposable Subscribe(IObserver<NetworkStateChangedEvent> observer)
-        {
-            return Disposable.Empty;
-        }
     }
 }

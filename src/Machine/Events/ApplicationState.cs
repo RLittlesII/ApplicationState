@@ -5,9 +5,9 @@ using System.Reactive.Subjects;
 
 namespace ApplicationState.Machine.Events
 {
-    public class ApplicationEvents : DisposableBase, IApplicationEvents
+    public class ApplicationState : DisposableBase, IApplicationState
     {
-        public ApplicationEvents(IApplicationTriggers applicationTriggers)
+        public ApplicationState(IApplicationTriggers applicationTriggers)
         {
             var current = new Uri("//NavigationPage");
 
