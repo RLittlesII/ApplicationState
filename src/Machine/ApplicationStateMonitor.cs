@@ -1,7 +1,11 @@
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Events;
+using ApplicationState.Machine.Background;
+using ApplicationState.Machine.Foreground;
+using ApplicationState.Machine.Initialize;
+using ApplicationState.Machine.Offline;
+using ApplicationState.Machine.Online;
 
 namespace ApplicationState.Machine
 {
@@ -10,35 +14,33 @@ namespace ApplicationState.Machine
         public ApplicationStateMonitor(IApplicationState applicationState, ApplicationStatelessMachine statelessMachine)
         {
             applicationState
-                .WhereHasSignal()
-                .Select(x => new GainedSignalEvent(new Uri("//NavigationPage")))
-                .Subscribe(connectivityChangedEvent => statelessMachine.Connect(connectivityChangedEvent))
+                .OfType<GainedSignalEvent>()
+                .Subscribe(gainedSignal => statelessMachine.Connect(gainedSignal))
                 .DisposeWith(Garbage);
 
             applicationState
-                .WhereHasNoSignal()
-                .Select(x => new LostSignalEvent(new Uri("//NavigationPage")))
-                .Subscribe(connectivityChangedEvent => statelessMachine.Disconnect(connectivityChangedEvent))
+                .OfType<LostSignalEvent>()
+                .Subscribe(lostSignal => statelessMachine.Disconnect(lostSignal))
                 .DisposeWith(Garbage);
 
             applicationState
                .OfType<InitializeApplicationEvent>()
-               .Subscribe(applicationEvent => statelessMachine.Initialize(applicationEvent))
+               .Subscribe(initialize => statelessMachine.Initialize(initialize))
                .DisposeWith(Garbage);
 
             applicationState
                .OfType<StartApplicationEvent>()
-               .Subscribe(applicationEvent => statelessMachine.Start(applicationEvent))
+               .Subscribe(startApplication => statelessMachine.Start(startApplication))
                .DisposeWith(Garbage);
 
             applicationState
                .OfType<StopApplicationEvent>()
-               .Subscribe(applicationEvent => statelessMachine.Stop(applicationEvent))
+               .Subscribe(stopApplication => statelessMachine.Stop(stopApplication))
                .DisposeWith(Garbage);
 
             StateChanged = statelessMachine.StateChanged;
         }
 
-        public IObservable<ApplicationState> StateChanged { get; set; }
+        public IObservable<ApplicationMachineState> StateChanged { get; set; }
     }
 }

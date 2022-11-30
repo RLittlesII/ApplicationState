@@ -9,10 +9,7 @@ namespace ApplicationState.Mediator
 {
     public class ApplicationStateMediator : IApplicationStateMediator, IMediator
     {
-        public ApplicationStateMediator(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+        public ApplicationStateMediator(IMediator mediator) => _mediator = mediator;
 
         /// <inheritdoc />
         Task<TResponse> ISender.Send<TResponse>(IRequest<TResponse> request, CancellationToken cancellationToken) =>

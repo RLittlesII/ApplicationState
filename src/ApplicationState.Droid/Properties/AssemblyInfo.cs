@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("ApplicationState.Droid")]
+[assembly: AssemblyTitle("Forms.Droid")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("CompanyName")]
-[assembly: AssemblyProduct("ApplicationState.Droid")]
+[assembly: AssemblyProduct("Forms.Droid")]
 [assembly: AssemblyCopyright("Copyright © CompanyName Year")]
 [assembly: AssemblyTrademark("CompanyTrademark")]
 [assembly: AssemblyCulture("")]

@@ -2,19 +2,23 @@ using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
 using System.Reactive.Subjects;
-using ApplicationState.Machine.Events;
+using ApplicationState.Machine.Background;
+using ApplicationState.Machine.Foreground;
+using ApplicationState.Machine.Initialize;
+using ApplicationState.Machine.Offline;
+using ApplicationState.Machine.Online;
 using ApplicationState.Mediator;
 using Stateless;
 
 namespace ApplicationState.Machine
 {
-    public sealed class ApplicationStatelessMachine : StateMachine<ApplicationState, ApplicationEventTrigger>, IDisposable
+    public sealed class ApplicationStatelessMachine : StateMachine<ApplicationMachineState, ApplicationMachineTrigger>, IDisposable
     {
         public ApplicationStatelessMachine(IApplicationStateMediator applicationStateMediator,
-            ApplicationState initialState = ApplicationState.Initial) :
+            ApplicationMachineState initialState = ApplicationMachineState.Initial) :
             base(initialState) => ConfigureMachine(applicationStateMediator);
 
-        public IObservable<ApplicationState> StateChanged { get; private set; } = Observable.Empty<ApplicationState>();
+        public IObservable<ApplicationMachineState> StateChanged { get; private set; } = Observable.Empty<ApplicationMachineState>();
 
         public IObservable<string> UnhandledExceptions { get; private set; } = Observable.Empty<string>();
 
@@ -65,58 +69,58 @@ namespace ApplicationState.Machine
 
         private void ConfigureMachine(IApplicationStateMediator applicationStateMediator)
         {
-            var stateChange = new Subject<ApplicationState>().DisposeWith(_garbage);
+            var stateChange = new Subject<ApplicationMachineState>().DisposeWith(_garbage);
             var unhandledExceptions = new Subject<string>().DisposeWith(_garbage);
 
-            _start = SetTriggerParameters<ApplicationStateEvent>(ApplicationEventTrigger.Start);
-            _stop = SetTriggerParameters<StopApplicationEvent>(ApplicationEventTrigger.Stop);
-            _connect = SetTriggerParameters<GainedSignalEvent>(ApplicationEventTrigger.Connected);
-            _disconnect = SetTriggerParameters<LostSignalEvent>(ApplicationEventTrigger.Disconnected);
+            _start = SetTriggerParameters<ApplicationStateEvent>(ApplicationMachineTrigger.Start);
+            _stop = SetTriggerParameters<StopApplicationEvent>(ApplicationMachineTrigger.Stop);
+            _connect = SetTriggerParameters<GainedSignalEvent>(ApplicationMachineTrigger.Connected);
+            _disconnect = SetTriggerParameters<LostSignalEvent>(ApplicationMachineTrigger.Disconnected);
 
-            Configure(ApplicationState.Initial)
-                .Permit(ApplicationEventTrigger.Connected, ApplicationState.Online)
-                .Permit(ApplicationEventTrigger.Disconnected, ApplicationState.Offline)
-                .Permit(ApplicationEventTrigger.Start, ApplicationState.Foreground)
-                .Permit(ApplicationEventTrigger.Stop, ApplicationState.Background)
+            Configure(ApplicationMachineState.Initial)
+                .Permit(ApplicationMachineTrigger.Connected, ApplicationMachineState.Online)
+                .Permit(ApplicationMachineTrigger.Disconnected, ApplicationMachineState.Offline)
+                .Permit(ApplicationMachineTrigger.Start, ApplicationMachineState.Foreground)
+                .Permit(ApplicationMachineTrigger.Stop, ApplicationMachineState.Background)
                 .OnEntry(CommonEntry)
                 .OnExit(CommonExit)
-                .OnActivate(() => Fire(ApplicationEventTrigger.Start));
+                .OnActivate(() => Fire(ApplicationMachineTrigger.Start));
 
-            Configure(ApplicationState.Background)
-                .Permit(ApplicationEventTrigger.Start, ApplicationState.Foreground)
-                .Permit(ApplicationEventTrigger.Deeplink, ApplicationState.Foreground)
-                .Permit(ApplicationEventTrigger.Notification, ApplicationState.Foreground)
+            Configure(ApplicationMachineState.Background)
+                .Permit(ApplicationMachineTrigger.Start, ApplicationMachineState.Foreground)
+                .Permit(ApplicationMachineTrigger.Deeplink, ApplicationMachineState.Foreground)
+                .Permit(ApplicationMachineTrigger.Notification, ApplicationMachineState.Foreground)
                 .OnEntryFrom(_stop,  stateEvent => PublishStateEvent(stateEvent))
                 .OnEntry(CommonEntry)
                 .OnExit(CommonExit);
 
-            Configure(ApplicationState.Foreground)
-                .Ignore(ApplicationEventTrigger.Deeplink)
-                .Ignore(ApplicationEventTrigger.Notification)
-                .Permit(ApplicationEventTrigger.Stop, ApplicationState.Background)
-                .Permit(ApplicationEventTrigger.Connected, ApplicationState.Online)
-                .Permit(ApplicationEventTrigger.Disconnected, ApplicationState.Offline)
+            Configure(ApplicationMachineState.Foreground)
+                .Ignore(ApplicationMachineTrigger.Deeplink)
+                .Ignore(ApplicationMachineTrigger.Notification)
+                .Permit(ApplicationMachineTrigger.Stop, ApplicationMachineState.Background)
+                .Permit(ApplicationMachineTrigger.Connected, ApplicationMachineState.Online)
+                .Permit(ApplicationMachineTrigger.Disconnected, ApplicationMachineState.Offline)
                 .OnEntryFrom(_start,  stateEvent => PublishStateEvent(stateEvent))
                 .OnEntryFrom(_stop,  stateEvent => PublishStateEvent(stateEvent))
                 .OnEntry(CommonEntry)
                 .OnExit(CommonExit);
 
-            Configure(ApplicationState.Online)
-                .SubstateOf(ApplicationState.Foreground)
-                .SubstateOf(ApplicationState.Background)
-                .Permit(ApplicationEventTrigger.Stop, ApplicationState.Background)
-                .Permit(ApplicationEventTrigger.Disconnected, ApplicationState.Offline)
+            Configure(ApplicationMachineState.Online)
+                .SubstateOf(ApplicationMachineState.Foreground)
+                .SubstateOf(ApplicationMachineState.Background)
+                .Permit(ApplicationMachineTrigger.Stop, ApplicationMachineState.Background)
+                .Permit(ApplicationMachineTrigger.Disconnected, ApplicationMachineState.Offline)
                 .OnEntryFrom(_connect,  connectivityChangedEvent => PublishStateEvent(connectivityChangedEvent))
                 .OnEntry(CommonEntry)
                 .OnExit(CommonExit);
 
-            Configure(ApplicationState.Offline)
-                .SubstateOf(ApplicationState.Foreground)
-                .SubstateOf(ApplicationState.Background)
-                .Ignore(ApplicationEventTrigger.Deeplink)
-                .Ignore(ApplicationEventTrigger.Notification)
-                .Permit(ApplicationEventTrigger.Start, ApplicationState.Foreground)
-                .Permit(ApplicationEventTrigger.Connected, ApplicationState.Online)
+            Configure(ApplicationMachineState.Offline)
+                .SubstateOf(ApplicationMachineState.Foreground)
+                .SubstateOf(ApplicationMachineState.Background)
+                .Ignore(ApplicationMachineTrigger.Deeplink)
+                .Ignore(ApplicationMachineTrigger.Notification)
+                .Permit(ApplicationMachineTrigger.Start, ApplicationMachineState.Foreground)
+                .Permit(ApplicationMachineTrigger.Connected, ApplicationMachineState.Online)
                 .OnEntryFrom(_disconnect,  connectivityChangedEvent => PublishStateEvent(connectivityChangedEvent))
                 .OnEntry(CommonEntry)
                 .OnExit(CommonExit);
@@ -144,9 +148,16 @@ namespace ApplicationState.Machine
             void CommonExit(Transition transition) =>
                 TraceTransition(transition);
 
-            void PublishStateEvent(ApplicationStateEvent stateEvent)
+            void PublishStateEvent(ApplicationStateEvent? stateEvent)
             {
-                using var _ = applicationStateMediator.Notify(stateEvent).Finally(() => Console.WriteLine(stateEvent.ToString())).Subscribe();
+                if (stateEvent != null)
+                {
+                    using var _ =
+                        applicationStateMediator
+                            .Notify(stateEvent)
+                            .Finally(() => Console.WriteLine(stateEvent.ToString()))
+                            .Subscribe();
+                }
             }
 
             void TraceTransition(Transition _) => Console.WriteLine($"{_}");

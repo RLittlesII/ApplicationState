@@ -4,7 +4,7 @@ using Android.OS;
 
 namespace ApplicationState.Droid
 {
-    [Activity(Label = "ApplicationState", Theme = "@style/MainTheme", MainLauncher = true,
+    [Activity(Label = "Forms", Theme = "@style/MainTheme", MainLauncher = true,
         ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {

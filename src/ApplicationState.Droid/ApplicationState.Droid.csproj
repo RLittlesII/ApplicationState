@@ -39,36 +39,36 @@
         <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="Mono.Android"/>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Xml.Linq"/>
-        <Reference Include="System.Xml"/>
+        <Reference Include="Mono.Android" />
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.Xml.Linq" />
+        <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
         <PackageReference Include="Xamarin.Forms" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="MainActivity.cs"/>
-        <Compile Include="Resources\Resource.Designer.cs"/>
-        <Compile Include="Properties\AssemblyInfo.cs"/>
+        <Compile Include="MainActivity.cs" />
+        <Compile Include="Resources\Resource.Designer.cs" />
+        <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>
-        <None Include="Resources\AboutResources.txt"/>
-        <None Include="Assets\AboutAssets.txt"/>
-        <None Include="Properties\AndroidManifest.xml"/>
+        <None Include="Resources\AboutResources.txt" />
+        <None Include="Assets\AboutAssets.txt" />
+        <None Include="Properties\AndroidManifest.xml" />
     </ItemGroup>
     <ItemGroup>
-        <AndroidResource Include="Resources\layout\Tabbar.axml"/>
-        <AndroidResource Include="Resources\layout\Toolbar.axml"/>
-        <AndroidResource Include="Resources\values\styles.xml"/>
-        <AndroidResource Include="Resources\values\colors.xml"/>
+        <AndroidResource Include="Resources\layout\Tabbar.axml" />
+        <AndroidResource Include="Resources\layout\Toolbar.axml" />
+        <AndroidResource Include="Resources\values\styles.xml" />
+        <AndroidResource Include="Resources\values\colors.xml" />
     </ItemGroup>
     <ItemGroup>
-        <ProjectReference Include="..\ApplicationState\ApplicationState.csproj">
-            <Project>{FD6B2E13-7418-4BE5-9447-EC115BE04F87}</Project>
-            <Name>ApplicationState</Name>
+        <ProjectReference Include="..\Forms\Forms.csproj">
+            <Project>{c2b29c65-200a-4c7c-bc71-155a6deac1ff}</Project>
+            <Name>Forms</Name>
         </ProjectReference>
     </ItemGroup>
-    <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets"/>
+    <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
