@@ -1,11 +1,11 @@
 # Application State
 
-This is a sample that shows the use of [Stateless]() and [MediatR]() to model mobile application foregrounding, background, background launch, connecting, and disconnecting.
+This is a sample that shows the use of [Stateless](https://github.com/dotnet-state-machine/stateless) and [MediatR](https://github.com/jbogard/MediatR) to model mobile applications' foregrounding, background, background launch, connecting, and disconnecting.
 
 The goal of this sample is to solve the following requirements
 
 - [ ] Provide a State Machine that models the application state
-- [ ] Allow the State Machine to produce state information for down stream subscribers
+- [ ] Allow the State Machine to produce state information for downstream subscribers
 - [ ] The solution should allow certain routines to execute during certain state transitions
   - [ ] The routines should execute before the notification is sent to the downstream subscribers
 - [ ] Keep the concerns as clear and separate as possible.
