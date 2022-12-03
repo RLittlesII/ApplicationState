@@ -15,7 +15,7 @@ namespace ApplicationState.Machine.Tests
         {
             // Given
             ApplicationState? result = null;
-            var applicationState = new ApplicationStateEventGeneratorMock();
+            var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             sut.State.Subscribe(actual => result = actual);
             // When
@@ -30,7 +30,7 @@ namespace ApplicationState.Machine.Tests
         {
             // Given
             ApplicationState? result = null;
-            var applicationState = new ApplicationStateEventGeneratorMock();
+            var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             sut.State.Subscribe(actual => result = actual);
 
@@ -53,7 +53,7 @@ namespace ApplicationState.Machine.Tests
         {
             // Given
             ApplicationState? result = null;
-            var applicationState = new ApplicationStateEventGeneratorMock();
+            var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             using var _ = sut.State.Subscribe(actual => result = actual);
 

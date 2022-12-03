@@ -12,10 +12,10 @@ using ApplicationState.Machine.Network.Online;
 
 namespace ApplicationState.Machine
 {
-    public class ApplicationStateEventGenerator : DisposableBase, IApplicationStateEventGenerator
+    public class ApplicationStateEvents : DisposableBase, IApplicationStateEvents
     {
         // NOTE: [rlittlesii: November 26, 2022] encapsulate ay other application, operating system or device notification here.
-        public ApplicationStateEventGenerator(IApplicationLifecycleState applicationLifecycleState, INetworkState networkState)
+        public ApplicationStateEvents(IApplicationLifecycleState applicationLifecycleState, INetworkState networkState)
         {
             _applicationStateEvents = new Subject<ApplicationStateEvent>().DisposeWith(Garbage);
 
@@ -45,13 +45,13 @@ namespace ApplicationState.Machine
 
             networkState
                 .WhereHasSignal()
-                .Select(networkStateChangedEvent => new GainedSignalEvent())
+                .Select(_ => new GainedSignalEvent())
                 .Subscribe(_applicationStateEvents)
                 .DisposeWith(Garbage);
 
             networkState
                 .WhereHasNoSignal()
-                .Select(networkStateChangedEvent => new LostSignalEvent())
+                .Select(_ => new LostSignalEvent())
                 .Subscribe(_applicationStateEvents)
                 .DisposeWith(Garbage);
         }

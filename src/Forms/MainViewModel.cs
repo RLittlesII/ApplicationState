@@ -1,7 +1,6 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Machine;
 using ApplicationState.Machine.Application;
 using ApplicationState.Machine.Application.Background;
 using ApplicationState.Machine.Application.Foreground;

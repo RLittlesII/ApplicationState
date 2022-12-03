@@ -9,11 +9,11 @@ namespace ApplicationState.Machine.Tests;
 internal sealed class ApplicationStateMonitorFixture : ITestFixtureBuilder
 {
     public static implicit operator ApplicationStateMonitor(ApplicationStateMonitorFixture fixture) => fixture.Build();
-    public ApplicationStateMonitorFixture WithState(IApplicationStateEventGenerator applicationStateEventGenerator) => this.With(ref _applicationStateEventGenerator, applicationStateEventGenerator);
-    private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationStateEventGenerator, _applicationStateMachine, _networkStateMachine);
+    public ApplicationStateMonitorFixture WithState(IApplicationStateEvents applicationStateEvents) => this.With(ref _applicationStateEvents, applicationStateEvents);
+    private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationStateEvents, _applicationStateMachine, _networkStateMachine);
 
     private INetworkState _networkState = Substitute.For<INetworkState>();
-    private IApplicationStateEventGenerator _applicationStateEventGenerator = Substitute.For<IApplicationStateEventGenerator>();
+    private IApplicationStateEvents _applicationStateEvents = Substitute.For<IApplicationStateEvents>();
     private ApplicationStateMachine _applicationStateMachine = new ApplicationStatelessMachineFixture();
     private NetworkStateMachine _networkStateMachine = new NetworkStateMachineFixture();
 }

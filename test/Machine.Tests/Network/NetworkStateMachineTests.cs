@@ -5,7 +5,6 @@ using ApplicationState.Machine.Network;
 using ApplicationState.Machine.Network.Offline;
 using ApplicationState.Machine.Network.Online;
 using ApplicationState.Machine.Tests.Application;
-using ApplicationState.Machine.Tests.Network.TestData;
 using ApplicationState.Mediator;
 using FluentAssertions;
 using NSubstitute;
@@ -15,6 +14,36 @@ namespace ApplicationState.Machine.Tests.Network;
 
 public class NetworkStateMachineTests
 {
+    [Fact]
+    public void GivenInitial_WhenConnect_ThenOnline()
+    {
+        // Given
+        NetworkStateMachine sut = new NetworkStateMachineFixture();
+
+        // When
+        sut.Connect(new GainedSignalEvent());
+
+        // Then
+        sut.State
+            .Should()
+            .Be(NetworkMachineState.Online);
+    }
+
+    [Fact]
+    public void GivenInitial_WhenDisconnect_ThenOffline()
+    {
+        // Given
+        NetworkStateMachine sut = new NetworkStateMachineFixture();
+
+        // When
+        sut.Disconnect(new LostSignalEvent());
+
+        // Then
+        sut.State
+            .Should()
+            .Be(NetworkMachineState.Offline);
+    }
+
     [Fact]
     public void GivenOffline_WhenConnect_ThenOnline()
     {
@@ -31,7 +60,7 @@ public class NetworkStateMachineTests
     }
 
     [Fact]
-    public void Given_WhenConnect_ThenMediatorPublished()
+    public void GivenOffline_WhenConnect_ThenMediatorPublished()
     {
         // Given
         var mediator = Substitute.For<IApplicationStateMediator>();
@@ -42,7 +71,7 @@ public class NetworkStateMachineTests
         sut.Connect(new GainedSignalEvent());
 
         // Then
-        // mediator.Received().Publish(Arg.Any<ResumeApplicationEvent>());
+        mediator.Received().Notify(Arg.Any<GainedSignalEvent>());
     }
 
     [Fact]
@@ -72,7 +101,7 @@ public class NetworkStateMachineTests
         sut.Disconnect(new LostSignalEvent());
 
         // Then
-        // mediator.Received().Publish(Arg.Any<ResumeApplicationEvent>());
+        mediator.Received().Notify(Arg.Any<LostSignalEvent>());
     }
 
     [Theory]
@@ -95,6 +124,23 @@ public class NetworkStateMachineTests
     [Theory]
     [ClassData(typeof(OfflineStateTestData))]
     public void GivenOffline_WhenFired_ThenTransitioned(NetworkMachineTrigger machineTrigger,
+        NetworkMachineState transitionedState)
+    {
+        // Given
+        NetworkStateMachine sut = new NetworkStateMachineFixture().WithState(NetworkMachineState.Offline);
+
+        // When
+        sut.Fire(machineTrigger);
+
+        // Then
+        sut.State
+            .Should()
+            .Be(transitionedState);
+    }
+
+    [Theory]
+    [ClassData(typeof(InitialStateTestData))]
+    public void GivenInitial_WhenFired_ThenTransitioned(NetworkMachineTrigger machineTrigger,
         NetworkMachineState transitionedState)
     {
         // Given

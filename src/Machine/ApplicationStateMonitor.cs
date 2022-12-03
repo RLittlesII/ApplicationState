@@ -13,31 +13,31 @@ namespace ApplicationState.Machine
 {
     public class ApplicationStateMonitor : DisposableBase
     {
-        public ApplicationStateMonitor(IApplicationStateEventGenerator applicationStateEventGenerator,
+        public ApplicationStateMonitor(IApplicationStateEvents applicationStateEvents,
             ApplicationStateMachine applicationStateMachine,
             NetworkStateMachine networkStateMachine)
         {
-            applicationStateEventGenerator
+            applicationStateEvents
                 .OfType<GainedSignalEvent>()
                 .Subscribe(gainedSignal => networkStateMachine.Connect(gainedSignal))
                 .DisposeWith(Garbage);
 
-            applicationStateEventGenerator
+            applicationStateEvents
                 .OfType<LostSignalEvent>()
                 .Subscribe(lostSignal => networkStateMachine.Disconnect(lostSignal))
                 .DisposeWith(Garbage);
 
-            applicationStateEventGenerator
+            applicationStateEvents
                .OfType<InitializeApplicationEvent>()
                .Subscribe(initialize => applicationStateMachine.Initialize(initialize))
                .DisposeWith(Garbage);
 
-            applicationStateEventGenerator
+            applicationStateEvents
                .OfType<StartApplicationEvent>()
                .Subscribe(startApplication => applicationStateMachine.Start(startApplication))
                .DisposeWith(Garbage);
 
-            applicationStateEventGenerator
+            applicationStateEvents
                .OfType<StopApplicationEvent>()
                .Subscribe(stopApplication => applicationStateMachine.Stop(stopApplication))
                .DisposeWith(Garbage);

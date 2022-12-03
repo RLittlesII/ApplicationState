@@ -4,7 +4,7 @@ using ApplicationState.Machine.Application;
 
 namespace ApplicationState.Machine.Tests
 {
-    internal class ApplicationStateEventGeneratorMock : IApplicationStateEventGenerator
+    internal class ApplicationStateEventsMock : IApplicationStateEvents
     {
         public void Notify(ApplicationStateEvent stateEvent) => _applicationStateEvents.OnNext(stateEvent);
         public void Notify(params ApplicationStateEvent[] stateEvent)

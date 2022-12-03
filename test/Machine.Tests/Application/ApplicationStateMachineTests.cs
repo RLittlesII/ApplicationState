@@ -4,7 +4,6 @@ using ApplicationState.Machine.Application;
 using ApplicationState.Machine.Application.Background;
 using ApplicationState.Machine.Application.Foreground;
 using ApplicationState.Machine.Application.Initialize;
-using ApplicationState.Machine.Tests.Application.TestData;
 using ApplicationState.Mediator;
 using FluentAssertions;
 using NSubstitute;
@@ -66,7 +65,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenInitialize_ThenForeground()
+        public void GivenInitial_WhenInitialize_ThenForeground()
         {
             // Given
             ApplicationStateMachine sut = new ApplicationStatelessMachineFixture();
@@ -81,7 +80,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenInitialize_ThenMediatorPublished()
+        public void GivenInitial_WhenInitialize_ThenMediatorPublished()
         {
             // Given
             var mediator = Substitute.For<IApplicationStateMediator>();
@@ -96,7 +95,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenStart_ThenForeground()
+        public void GivenInitial_WhenStart_ThenForeground()
         {
             // Given
             ApplicationStateMachine sut = new ApplicationStatelessMachineFixture();
@@ -111,7 +110,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenStart_ThenMediatorPublished()
+        public void GivenInitial_WhenStart_ThenMediatorPublished()
         {
             // Given
             var mediator = Substitute.For<IApplicationStateMediator>();
@@ -126,7 +125,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenStop_ThenBackground()
+        public void GivenInitial_WhenStop_ThenBackground()
         {
             // Given
             ApplicationStateMachine sut = new ApplicationStatelessMachineFixture();
@@ -141,7 +140,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenStop_ThenMediatorPublished()
+        public void GivenForeground_WhenStop_ThenMediatorPublished()
         {
             // Given
             var mediator = Substitute.For<IApplicationStateMediator>();
@@ -156,7 +155,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenResume_ThenForeground()
+        public void GivenInitial_WhenResume_ThenForeground()
         {
             // Given
             ApplicationStateMachine sut = new ApplicationStatelessMachineFixture();
@@ -171,7 +170,7 @@ namespace ApplicationState.Machine.Tests.Application
         }
 
         [Fact]
-        public void Given_WhenResume_ThenMediatorPublished()
+        public void GivenInitial_WhenResume_ThenMediatorPublished()
         {
             // Given
             var mediator = Substitute.For<IApplicationStateMediator>();

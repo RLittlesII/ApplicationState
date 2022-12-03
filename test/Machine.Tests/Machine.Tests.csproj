@@ -14,5 +14,8 @@
       <ProjectReference Include="..\..\src\Machine\Machine.csproj" />
       <ProjectReference Include="..\..\src\Mediator\Mediator.csproj" />
     </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Application\TestData" />
+    </ItemGroup>
 
 </Project>

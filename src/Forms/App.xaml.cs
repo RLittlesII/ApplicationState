@@ -25,7 +25,7 @@ namespace ApplicationState
             InitializeComponent();
             var services = new ServiceCollection()
                 .AddSingleton<ApplicationStateMonitor>()
-                .AddSingleton<IApplicationStateEventGenerator, Machine.ApplicationStateEventGenerator>()
+                .AddSingleton<IApplicationStateEvents, Machine.ApplicationStateEvents>()
                 .AddSingleton<IApplicationLifecycleState>(_ => this)
                 .AddSingleton<ApplicationStateMachine>()
                 .AddSingleton<NetworkStateMachine>()

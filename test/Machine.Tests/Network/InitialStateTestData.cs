@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using ApplicationState.Machine.Network;
 
-namespace ApplicationState.Machine.Tests.Network.TestData;
+namespace ApplicationState.Machine.Tests.Network;
 
-internal class OfflineStateTestData : IEnumerable<object[]>
+internal class InitialStateTestData : IEnumerable<object[]>
 {
     public IEnumerator<object[]> GetEnumerator()
     {
