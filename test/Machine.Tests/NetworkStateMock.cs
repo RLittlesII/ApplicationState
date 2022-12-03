@@ -1,5 +1,6 @@
 using System;
 using System.Reactive.Subjects;
+using ApplicationState.Machine.Network;
 
 namespace ApplicationState.Machine.Tests;
 

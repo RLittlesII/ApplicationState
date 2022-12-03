@@ -1,4 +1,5 @@
 using System.Linq;
+using ApplicationState.Machine.Network;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
 
 namespace ApplicationState.Machine.Tests

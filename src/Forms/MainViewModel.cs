@@ -2,11 +2,13 @@ using System;
 using System.Reactive;
 using System.Reactive.Linq;
 using ApplicationState.Machine;
-using ApplicationState.Machine.Background;
-using ApplicationState.Machine.Foreground;
-using ApplicationState.Machine.Initialize;
-using ApplicationState.Machine.Offline;
-using ApplicationState.Machine.Online;
+using ApplicationState.Machine.Application;
+using ApplicationState.Machine.Application.Background;
+using ApplicationState.Machine.Application.Foreground;
+using ApplicationState.Machine.Application.Initialize;
+using ApplicationState.Machine.Network;
+using ApplicationState.Machine.Network.Offline;
+using ApplicationState.Machine.Network.Online;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -14,14 +16,14 @@ namespace ApplicationState
 {
     public class MainViewModel : ReactiveObject
     {
-        public MainViewModel(ApplicationStatelessMachine stateMachine)
+        public MainViewModel(ApplicationStateMachine stateMachine, NetworkStateMachine networkStateMachine)
         {
             Initialize = ReactiveCommand.Create(() =>
                 stateMachine.Initialize(new InitializeApplicationEvent()));
             Offline = ReactiveCommand.Create(() =>
-                stateMachine.Disconnect(new LostSignalEvent()));
+                networkStateMachine.Disconnect(new LostSignalEvent()));
             Online = ReactiveCommand.Create(() =>
-                stateMachine.Connect(new GainedSignalEvent()));
+                networkStateMachine.Connect(new GainedSignalEvent()));
             Start = ReactiveCommand.Create(() =>
                 stateMachine.Start(new StartApplicationEvent()));
             Stop = ReactiveCommand.Create(() =>
@@ -49,6 +51,6 @@ namespace ApplicationState
 
         public ReactiveCommand<Unit, Unit> Stop { get; }
 
-        public Machine.ApplicationMachineState CurrentState { [ObservableAsProperty] get; }
+        public ApplicationMachineState CurrentState { [ObservableAsProperty] get; }
     }
 }

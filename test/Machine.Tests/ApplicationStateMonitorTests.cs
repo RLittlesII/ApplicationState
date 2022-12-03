@@ -1,10 +1,9 @@
 using System;
-using ApplicationState.Machine.Initialize;
-using ApplicationState.Machine.Offline;
-using ApplicationState.Machine.Online;
+using ApplicationState.Machine.Application.Foreground;
+using ApplicationState.Machine.Application.Initialize;
+using ApplicationState.Machine.Network.Offline;
+using ApplicationState.Machine.Network.Online;
 using FluentAssertions;
-using NSubstitute;
-using Rocket.Surgery.Extensions.Testing.Fixtures;
 using Xunit;
 
 namespace ApplicationState.Machine.Tests
@@ -15,71 +14,61 @@ namespace ApplicationState.Machine.Tests
         public void GivenApplicationEvents_When_Then()
         {
             // Given
-            ApplicationMachineState? result = null;
-            var applicationState = new ApplicationStateMock();
+            ApplicationState? result = null;
+            var applicationState = new ApplicationStateEventGeneratorMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
-            sut.StateChanged.Subscribe(actual => result = actual);
+            sut.State.Subscribe(actual => result = actual);
             // When
-            applicationState.Notify(new InitializeApplicationEvent(new Uri("//current")));
+            applicationState.Notify(new InitializeApplicationEvent(), new GainedSignalEvent());
 
             // Then
             result.Should().NotBeNull();
         }
 
         [Fact]
-        public void GivenConnectivity_WhenHasConnection_ThenOnline()
+        public void GivenConnectivity_WhenGainedSignal_ThenOnline()
         {
             // Given
-            ApplicationMachineState? result = null;
-            var applicationState = new ApplicationStateMock();
+            ApplicationState? result = null;
+            var applicationState = new ApplicationStateEventGeneratorMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
-            sut.StateChanged.Subscribe(actual => result = actual);
+            sut.State.Subscribe(actual => result = actual);
 
             // When
-            applicationState.Notify(new GainedSignalEvent());
+            applicationState.Notify(new StartApplicationEvent(), new GainedSignalEvent());
 
             // Then
             result
-               .Should()
-               .NotBeNull()
-               .And
-               .Subject
-               .Should()
-               .Be(ApplicationMachineState.Online);
+                .Should()
+                .NotBeNull();
+
+            result
+                .Connected
+                .Should()
+                .BeTrue();
         }
 
         [Fact]
         public void GivenConnectivity_WhenHasNoConnection_ThenOffline()
         {
             // Given
-            ApplicationMachineState? result = null;
-            var applicationState = new ApplicationStateMock();
+            ApplicationState? result = null;
+            var applicationState = new ApplicationStateEventGeneratorMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
-            using var _ = sut.StateChanged.Subscribe(actual => result = actual);
+            using var _ = sut.State.Subscribe(actual => result = actual);
 
             // When
-            applicationState.Notify(new LostSignalEvent());
+            applicationState.Notify(new LostSignalEvent(), new StartApplicationEvent());
 
             // Then
             result
-               .Should()
-               .NotBeNull()
-               .And
-               .Subject
-               .Should()
-               .Be(ApplicationMachineState.Offline);
+                .Should()
+                .NotBeNull();
+
+            result
+                .Connected
+                .Should()
+                .BeFalse();
         }
-    }
-
-    internal sealed class ApplicationStateMonitorFixture : ITestFixtureBuilder
-    {
-        public static implicit operator ApplicationStateMonitor(ApplicationStateMonitorFixture fixture) => fixture.Build();
-        public ApplicationStateMonitorFixture WithState(IApplicationState applicationState) => this.With(ref _applicationState, applicationState);
-        public ApplicationStateMonitorFixture WithState(INetworkState networkState) => this.With(ref _networkState, networkState);
-        private ApplicationStateMonitor Build() => new ApplicationStateMonitor(_applicationState, _applicationStatelessMachine);
-
-        private INetworkState _networkState = Substitute.For<INetworkState>();
-        private IApplicationState _applicationState = Substitute.For<IApplicationState>();
-        private ApplicationStatelessMachine _applicationStatelessMachine = new ApplicationStatelessMachineFixture();
     }
 }

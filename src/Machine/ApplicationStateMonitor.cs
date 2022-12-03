@@ -1,46 +1,59 @@
 using System;
 using System.Reactive.Disposables;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Background;
-using ApplicationState.Machine.Foreground;
-using ApplicationState.Machine.Initialize;
-using ApplicationState.Machine.Offline;
-using ApplicationState.Machine.Online;
+using ApplicationState.Machine.Application;
+using ApplicationState.Machine.Application.Background;
+using ApplicationState.Machine.Application.Foreground;
+using ApplicationState.Machine.Application.Initialize;
+using ApplicationState.Machine.Network;
+using ApplicationState.Machine.Network.Offline;
+using ApplicationState.Machine.Network.Online;
 
 namespace ApplicationState.Machine
 {
     public class ApplicationStateMonitor : DisposableBase
     {
-        public ApplicationStateMonitor(IApplicationState applicationState, ApplicationStatelessMachine statelessMachine)
+        public ApplicationStateMonitor(IApplicationStateEventGenerator applicationStateEventGenerator,
+            ApplicationStateMachine applicationStateMachine,
+            NetworkStateMachine networkStateMachine)
         {
-            applicationState
+            applicationStateEventGenerator
                 .OfType<GainedSignalEvent>()
-                .Subscribe(gainedSignal => statelessMachine.Connect(gainedSignal))
+                .Subscribe(gainedSignal => networkStateMachine.Connect(gainedSignal))
                 .DisposeWith(Garbage);
 
-            applicationState
+            applicationStateEventGenerator
                 .OfType<LostSignalEvent>()
-                .Subscribe(lostSignal => statelessMachine.Disconnect(lostSignal))
+                .Subscribe(lostSignal => networkStateMachine.Disconnect(lostSignal))
                 .DisposeWith(Garbage);
 
-            applicationState
+            applicationStateEventGenerator
                .OfType<InitializeApplicationEvent>()
-               .Subscribe(initialize => statelessMachine.Initialize(initialize))
+               .Subscribe(initialize => applicationStateMachine.Initialize(initialize))
                .DisposeWith(Garbage);
 
-            applicationState
+            applicationStateEventGenerator
                .OfType<StartApplicationEvent>()
-               .Subscribe(startApplication => statelessMachine.Start(startApplication))
+               .Subscribe(startApplication => applicationStateMachine.Start(startApplication))
                .DisposeWith(Garbage);
 
-            applicationState
+            applicationStateEventGenerator
                .OfType<StopApplicationEvent>()
-               .Subscribe(stopApplication => statelessMachine.Stop(stopApplication))
+               .Subscribe(stopApplication => applicationStateMachine.Stop(stopApplication))
                .DisposeWith(Garbage);
 
-            StateChanged = statelessMachine.StateChanged;
+
+            State = applicationStateMachine
+                .StateChanged
+                .CombineLatest(networkStateMachine.StateChanged,
+                    (appState, networkState) => StateFactory(appState, networkState));
+
+            ApplicationState StateFactory(ApplicationMachineState appState, NetworkMachineState networkState) =>
+                new ApplicationState(appState == ApplicationMachineState.Foreground, networkState == NetworkMachineState.Online);
         }
 
-        public IObservable<ApplicationMachineState> StateChanged { get; set; }
+        public IObservable<ApplicationState> State { get; set; }
     }
+
+    public record ApplicationState(bool Foreground, bool Connected);
 }

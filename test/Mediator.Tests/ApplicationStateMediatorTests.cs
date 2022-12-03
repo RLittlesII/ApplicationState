@@ -1,9 +1,12 @@
 using System;
-using ApplicationState.Machine.Background;
-using ApplicationState.Machine.Foreground;
-using ApplicationState.Machine.Initialize;
-using ApplicationState.Machine.Offline;
-using ApplicationState.Machine.Online;
+using ApplicationState.Machine.Application.Background;
+using ApplicationState.Machine.Application.Foreground;
+using ApplicationState.Machine.Application.Initialize;
+using ApplicationState.Machine.Network.Offline;
+using ApplicationState.Machine.Network.Online;
+using FluentAssertions;
+using Microsoft.Extensions.DependencyInjection;
+using Xunit;
 
 namespace ApplicationState.Mediator.Tests
 {
@@ -19,7 +22,7 @@ namespace ApplicationState.Mediator.Tests
                 .GetService<IApplicationStateMediator>();
 
             // When
-            using var _ = sut?.Notify(new InitializeApplicationEvent(new Uri("//Root"))).Subscribe();
+            using var _ = sut?.Notify(new InitializeApplicationEvent()).Subscribe();
 
             // Then
             output
@@ -73,7 +76,7 @@ namespace ApplicationState.Mediator.Tests
                 .GetService<IApplicationStateMediator>();
 
             // When
-            using var _ = sut?.Notify(new StopApplicationEvent(new Uri("//Root"))).Subscribe();
+            using var _ = sut?.Notify(new StopApplicationEvent()).Subscribe();
 
             // Then
             output
@@ -105,7 +108,7 @@ namespace ApplicationState.Mediator.Tests
                 .GetService<IApplicationStateMediator>();
 
             // When
-            using var _ = sut?.Notify(new ResumeApplicationEvent(new Uri("//Root"))).Subscribe();
+            using var _ = sut?.Notify(new ResumeApplicationEvent()).Subscribe();
 
             // Then
             output
@@ -135,7 +138,7 @@ namespace ApplicationState.Mediator.Tests
             var sut = serviceProvider.GetService<IApplicationStateMediator>();
 
             // When
-            using var _ = sut?.Notify(new GainedSignalEvent(new Uri("//Root"))).Subscribe();
+            using var _ = sut?.Notify(new GainedSignalEvent()).Subscribe();
 
             // Then
             output
@@ -165,7 +168,7 @@ namespace ApplicationState.Mediator.Tests
             var sut = serviceProvider.GetService<IApplicationStateMediator>();
 
             // When
-            using var _ = sut?.Notify(new LostSignalEvent(new Uri("//Root"))).Subscribe();
+            using var _ = sut?.Notify(new LostSignalEvent()).Subscribe();
 
             // Then
             output
