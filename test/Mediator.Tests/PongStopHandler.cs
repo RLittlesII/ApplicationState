@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Application.Background;
+using ApplicationState.Application.Background;
 
 namespace ApplicationState.Mediator.Tests.Handlers;
 

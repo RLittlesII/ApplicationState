@@ -1,13 +1,13 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Application;
-using ApplicationState.Machine.Application.Background;
-using ApplicationState.Machine.Application.Foreground;
-using ApplicationState.Machine.Application.Initialize;
-using ApplicationState.Machine.Network;
-using ApplicationState.Machine.Network.Offline;
-using ApplicationState.Machine.Network.Online;
+using ApplicationState.Application;
+using ApplicationState.Application.Background;
+using ApplicationState.Application.Foreground;
+using ApplicationState.Application.Initialize;
+using ApplicationState.Network;
+using ApplicationState.Network.Offline;
+using ApplicationState.Network.Online;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
 
@@ -15,25 +15,29 @@ namespace ApplicationState
 {
     public class MainViewModel : ReactiveObject
     {
-        public MainViewModel(ApplicationStateMachine stateMachine, NetworkStateMachine networkStateMachine)
+        // NOTE: [rlittlesii: December 03, 2022] The statemachines are here so we can explicitly move state for the sample.
+        public MainViewModel(ApplicationStateMonitor applicationStateMonitor,
+            ApplicationStateMachine applicationStateMachine,
+            NetworkStateMachine networkStateMachine)
         {
             Initialize = ReactiveCommand.Create(() =>
-                stateMachine.Initialize(new InitializeApplicationEvent()));
+                applicationStateMachine.Initialize(new InitializeApplicationEvent()));
             Offline = ReactiveCommand.Create(() =>
                 networkStateMachine.Disconnect(new LostSignalEvent()));
             Online = ReactiveCommand.Create(() =>
                 networkStateMachine.Connect(new GainedSignalEvent()));
             Start = ReactiveCommand.Create(() =>
-                stateMachine.Start(new StartApplicationEvent()));
+                applicationStateMachine.Start(new StartApplicationEvent()));
             Stop = ReactiveCommand.Create(() =>
-                stateMachine.Stop(new StopApplicationEvent()));
+                applicationStateMachine.Stop(new StopApplicationEvent()));
 
-            stateMachine
-                .StateChanged
-                .ToPropertyEx(this, x => x.CurrentState);
+            applicationStateMonitor
+                .State
+                .ToPropertyEx(this, viewModel => viewModel.CurrentState);
 
-            stateMachine
+            applicationStateMachine
                 .UnhandledExceptions
+                .Merge(networkStateMachine.UnhandledExceptions)
                 .Select(value => Interactions.UnhandledTransitions.Handle(value))
                 .Switch()
                 .Subscribe();
@@ -50,6 +54,6 @@ namespace ApplicationState
 
         public ReactiveCommand<Unit, Unit> Stop { get; }
 
-        public ApplicationMachineState CurrentState { [ObservableAsProperty] get; }
+        public ApplicationState CurrentState { [ObservableAsProperty] get; }
     }
 }

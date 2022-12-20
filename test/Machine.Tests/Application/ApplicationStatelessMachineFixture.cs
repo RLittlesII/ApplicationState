@@ -1,4 +1,4 @@
-using ApplicationState.Machine.Application;
+using ApplicationState.Application;
 using ApplicationState.Mediator;
 using NSubstitute;
 using Rocket.Surgery.Extensions.Testing.Fixtures;

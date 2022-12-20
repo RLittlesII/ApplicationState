@@ -1,12 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ApplicationState.Machine.Application.Background;
-using ApplicationState.Machine.Application.Foreground;
-using ApplicationState.Machine.Application.Initialize;
-using ApplicationState.Machine.Network.Offline;
-using ApplicationState.Machine.Network.Online;
+using ApplicationState.Application.Background;
+using ApplicationState.Application.Foreground;
+using ApplicationState.Application.Initialize;
 using ApplicationState.Mediator.Tests.Handlers;
+using ApplicationState.Network.Offline;
+using ApplicationState.Network.Online;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 

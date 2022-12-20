@@ -1,6 +1,6 @@
 using System;
 using System.Reactive.Subjects;
-using ApplicationState.Machine.Application;
+using ApplicationState.Application;
 
 namespace ApplicationState.Machine.Tests
 {

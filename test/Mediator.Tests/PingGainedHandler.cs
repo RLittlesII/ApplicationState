@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Network.Online;
+using ApplicationState.Network.Online;
 
 namespace ApplicationState.Mediator.Tests.Handlers;
 

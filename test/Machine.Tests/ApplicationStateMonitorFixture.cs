@@ -1,6 +1,6 @@
-using ApplicationState.Machine.Application;
-using ApplicationState.Machine.Network;
+using ApplicationState.Application;
 using ApplicationState.Machine.Tests.Application;
+using ApplicationState.Network;
 using NSubstitute;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
 

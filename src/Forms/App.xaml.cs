@@ -1,45 +1,48 @@
 ﻿using System;
 using System.Reactive.Subjects;
-using ApplicationState.Machine;
-using ApplicationState.Machine.Application;
-using ApplicationState.Machine.Application.Background;
-using ApplicationState.Machine.Application.Foreground;
-using ApplicationState.Machine.Application.Initialize;
-using ApplicationState.Machine.Network;
-using ApplicationState.Machine.Network.Offline;
-using ApplicationState.Machine.Network.Online;
+using ApplicationState.Application;
+using ApplicationState.Application.Background;
+using ApplicationState.Application.Foreground;
+using ApplicationState.Application.Initialize;
 using ApplicationState.Mediator;
+using ApplicationState.Network;
+using ApplicationState.Network.Offline;
+using ApplicationState.Network.Online;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
-using Xamarin.Forms;
+using ReactiveMarbles.ObservableEvents;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]
+[assembly: GenerateStaticEventObservables(typeof(Xamarin.Essentials.Connectivity))]
 
 namespace ApplicationState
 {
-    public partial class App : Application, IApplicationLifecycleState
+    public partial class App : Xamarin.Forms.Application, IApplicationLifecycleState
     {
         public App()
         {
             InitializeComponent();
-            var services = new ServiceCollection()
-                .AddSingleton<ApplicationStateMonitor>()
-                .AddSingleton<IApplicationStateEvents, Machine.ApplicationStateEvents>()
-                .AddSingleton<IApplicationLifecycleState>(_ => this)
-                .AddSingleton<ApplicationStateMachine>()
-                .AddSingleton<NetworkStateMachine>()
-                .AddTransient(typeof(IApplicationStateHandler<InitializeApplicationEvent>), typeof(ApplicationStateHandler<InitializeApplicationEvent>))
-                .AddTransient(typeof(IApplicationStateHandler<ResumeApplicationEvent>), typeof(ApplicationStateHandler<ResumeApplicationEvent>))
-                .AddTransient(typeof(IApplicationStateHandler<StartApplicationEvent>), typeof(ApplicationStateHandler<StartApplicationEvent>))
-                .AddTransient(typeof(IApplicationStateHandler<StopApplicationEvent>), typeof(ApplicationStateHandler<StopApplicationEvent>))
-                .AddTransient(typeof(IApplicationStateHandler<GainedSignalEvent>), typeof(ApplicationStateHandler<GainedSignalEvent>))
-                .AddTransient(typeof(IApplicationStateHandler<LostSignalEvent>), typeof(ApplicationStateHandler<LostSignalEvent>))
-                .AddTransient<IMediator, MediatR.Mediator>()
-                .AddTransient<IApplicationStateMediator, ApplicationStateMediator>()
-                .AddMediatR(configuration => configuration.Using<ApplicationStateMediator>(), typeof(ApplicationStateHandler<>))
-                .AddTransient<MainViewModel>()
-                .AddLogging();
+
+            var services =
+                new ServiceCollection()
+                    .AddSingleton<ApplicationStateMonitor>()
+                    .AddSingleton<IApplicationStateEvents, ApplicationStateEvents>()
+                    .AddSingleton<IApplicationLifecycleState>(_ => this)
+                    .AddSingleton<INetworkState, XamarinEssentialsNetworkState>()
+                    .AddSingleton<ApplicationStateMachine>()
+                    .AddSingleton<NetworkStateMachine>()
+                    .AddTransient(typeof(IApplicationStateHandler<InitializeApplicationEvent>), typeof(ApplicationStateHandler<InitializeApplicationEvent>))
+                    .AddTransient(typeof(IApplicationStateHandler<ResumeApplicationEvent>), typeof(ApplicationStateHandler<ResumeApplicationEvent>))
+                    .AddTransient(typeof(IApplicationStateHandler<StartApplicationEvent>), typeof(ApplicationStateHandler<StartApplicationEvent>))
+                    .AddTransient(typeof(IApplicationStateHandler<StopApplicationEvent>), typeof(ApplicationStateHandler<StopApplicationEvent>))
+                    .AddTransient(typeof(IApplicationStateHandler<GainedSignalEvent>), typeof(ApplicationStateHandler<GainedSignalEvent>))
+                    .AddTransient(typeof(IApplicationStateHandler<LostSignalEvent>), typeof(ApplicationStateHandler<LostSignalEvent>))
+                    .AddTransient<IMediator, MediatR.Mediator>()
+                    .AddTransient<IApplicationStateMediator, ApplicationStateMediator>()
+                    .AddMediatR(configuration => configuration.Using<ApplicationStateMediator>(), typeof(ApplicationStateHandler<>))
+                    .AddTransient<MainViewModel>()
+                    .AddLogging();
 
             var viewModel =
                 (MainViewModel) services.BuildServiceProvider().GetService(typeof(MainViewModel))!;

@@ -11,8 +11,7 @@
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
     </ItemGroup>
     <ItemGroup>
-      <ProjectReference Include="..\..\src\Machine\Machine.csproj" />
-      <ProjectReference Include="..\..\src\Mediator\Mediator.csproj" />
+      <ProjectReference Include="..\..\src\State\State.csproj" />
     </ItemGroup>
     <ItemGroup>
       <Folder Include="Application\TestData" />

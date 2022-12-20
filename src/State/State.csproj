@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>netstandard2.1</TargetFramework>
+        <LangVersion>latest</LangVersion>
+        <RootNamespace>ApplicationState</RootNamespace>
+        <PackageId>State</PackageId>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="DynamicData" />
+        <PackageReference Include="MediatR" />
+        <PackageReference Include="Microsoft.Extensions.Configuration" />
+        <PackageReference Include="Microsoft.Extensions.Configuration.Json" />
+        <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+        <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+        <PackageReference Include="Humanizer" />
+        <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator">
+            <PrivateAssets>all</PrivateAssets>
+            <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="ReactiveUI" />
+        <PackageReference Include="ReactiveUI.Fody" />
+        <PackageReference Include="Stateless" />
+        <PackageReference Include="System.Reactive" />
+    </ItemGroup>
+
+</Project>

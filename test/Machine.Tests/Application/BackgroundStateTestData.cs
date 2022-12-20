@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using ApplicationState.Machine.Application;
+using ApplicationState.Application;
 
 namespace ApplicationState.Machine.Tests.Application
 {

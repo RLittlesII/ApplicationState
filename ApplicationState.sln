@@ -2,9 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Forms", "src\Forms\Forms.csproj", "{C2B29C65-200A-4C7C-BC71-155A6DEAC1FF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationState.Droid", "src\ApplicationState.Droid\ApplicationState.Droid.csproj", "{FB086EC1-78F6-4BA7-B64D-B024A7B9C41C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Droid", "src\Droid\Droid.csproj", "{FB086EC1-78F6-4BA7-B64D-B024A7B9C41C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationState.iOS", "src\ApplicationState.iOS\ApplicationState.iOS.csproj", "{3E741564-27E8-4F98-A43A-7AA46C99CE77}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "iOS", "src\iOS\iOS.csproj", "{3E741564-27E8-4F98-A43A-7AA46C99CE77}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A356755-602C-4ADC-97BC-9F71018F7ADC}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5A356755-602
 		src\directory.build.targets = src\directory.build.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Machine", "src\Machine\Machine.csproj", "{484D8ED0-4141-40F3-80BF-3F4715918DAE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "State", "src\State\State.csproj", "{484D8ED0-4141-40F3-80BF-3F4715918DAE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7AD432C6-DB51-4648-985C-D60BCE5A9B1C}"
 	ProjectSection(SolutionItems) = preProject
@@ -32,8 +32,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".solution", ".solution", "{
 		README.md = README.md
 		LICENSE = LICENSE
 	EndProjectSection
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator", "src\Mediator\Mediator.csproj", "{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mediator.Tests", "test\Mediator.Tests\Mediator.Tests.csproj", "{C0811ABE-25BB-46F0-9F5C-7D154145B4B4}"
 EndProject
@@ -145,22 +143,6 @@ Global
 		{EB57DF2B-B5AF-4BEF-AA47-D6FB7E418D92}.Release|iPhone.Build.0 = Release|Any CPU
 		{EB57DF2B-B5AF-4BEF-AA47-D6FB7E418D92}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{EB57DF2B-B5AF-4BEF-AA47-D6FB7E418D92}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|iPhone.Build.0 = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{C0811ABE-25BB-46F0-9F5C-7D154145B4B4}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{C0811ABE-25BB-46F0-9F5C-7D154145B4B4}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{C0811ABE-25BB-46F0-9F5C-7D154145B4B4}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
@@ -184,7 +166,6 @@ Global
 		{EB57DF2B-B5AF-4BEF-AA47-D6FB7E418D92} = {7AD432C6-DB51-4648-985C-D60BCE5A9B1C}
 		{FB086EC1-78F6-4BA7-B64D-B024A7B9C41C} = {A09EF4BE-D850-4927-919B-E34E4FA10FCC}
 		{3E741564-27E8-4F98-A43A-7AA46C99CE77} = {A09EF4BE-D850-4927-919B-E34E4FA10FCC}
-		{B3135A01-FC10-44A9-B8BC-1BE0B2D31995} = {5A356755-602C-4ADC-97BC-9F71018F7ADC}
 		{C0811ABE-25BB-46F0-9F5C-7D154145B4B4} = {7AD432C6-DB51-4648-985C-D60BCE5A9B1C}
 	EndGlobalSection
 EndGlobal

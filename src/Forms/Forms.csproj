@@ -21,10 +21,11 @@
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
         <PackageReference Include="System.Reactive" />
+        <PackageReference Include="Xamarin.Essentials" />
         <PackageReference Include="Xamarin.Forms" />
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Machine\Machine.csproj" />
+      <ProjectReference Include="..\State\State.csproj" />
     </ItemGroup>
 </Project>

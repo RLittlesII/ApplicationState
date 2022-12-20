@@ -1,9 +1,9 @@
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Machine.Application;
-using ApplicationState.Machine.Application.Background;
-using ApplicationState.Machine.Application.Foreground;
-using ApplicationState.Machine.Application.Initialize;
+using ApplicationState.Application;
+using ApplicationState.Application.Background;
+using ApplicationState.Application.Foreground;
+using ApplicationState.Application.Initialize;
 using ApplicationState.Mediator;
 using FluentAssertions;
 using NSubstitute;

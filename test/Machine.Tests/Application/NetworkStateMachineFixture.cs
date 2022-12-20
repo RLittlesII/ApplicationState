@@ -1,5 +1,5 @@
-using ApplicationState.Machine.Network;
 using ApplicationState.Mediator;
+using ApplicationState.Network;
 using NSubstitute;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
 

@@ -1,9 +1,9 @@
 using System;
-using ApplicationState.Machine.Application.Background;
-using ApplicationState.Machine.Application.Foreground;
-using ApplicationState.Machine.Application.Initialize;
-using ApplicationState.Machine.Network.Offline;
-using ApplicationState.Machine.Network.Online;
+using ApplicationState.Application.Background;
+using ApplicationState.Application.Foreground;
+using ApplicationState.Application.Initialize;
+using ApplicationState.Network.Offline;
+using ApplicationState.Network.Online;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
 using Xunit;
