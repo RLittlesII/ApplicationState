@@ -43,7 +43,6 @@ namespace ApplicationState
                .Subscribe(stopApplication => applicationStateMachine.Stop(stopApplication))
                .DisposeWith(Garbage);
 
-
             State = applicationStateMachine
                 .StateChanged
                 .CombineLatest(networkStateMachine.StateChanged,
@@ -51,7 +50,7 @@ namespace ApplicationState
                 .StartWith(ApplicationState.Default);
 
             static ApplicationState StateFactory(ApplicationMachineState appState, NetworkMachineState networkState) =>
-                new ApplicationState(appState == ApplicationMachineState.Foreground, networkState == NetworkMachineState.Online);
+                new(appState == ApplicationMachineState.Foreground, networkState == NetworkMachineState.Online);
         }
 
         public IObservable<ApplicationState> State { get; set; }
@@ -59,6 +58,6 @@ namespace ApplicationState
 
     public record ApplicationState(bool Foreground, bool Connected) : ReactiveRecord
     {
-        public static ApplicationState Default => new ApplicationState(false, false);
+        public static ApplicationState Default { get; } = new(false, false);
     }
 }

@@ -2,8 +2,9 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <RootNamespace>ApplicationState</RootNamespace>
+        <LangVersion>latest</LangVersion>
         <AssemblyName>ApplicationState.Forms</AssemblyName>
+        <RootNamespace>ApplicationState</RootNamespace>
     </PropertyGroup>
 
     <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -14,12 +15,12 @@
     <ItemGroup>
         <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" />
         <PackageReference Include="Microsoft.Extensions.Logging" />
-        <PackageReference Include="ReactiveUI.Fody" />
-        <PackageReference Include="ReactiveUI.XamForms" />
         <PackageReference Include="ReactiveMarbles.ObservableEvents.SourceGenerator">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
+        <PackageReference Include="ReactiveUI.Fody" />
+        <PackageReference Include="ReactiveUI.XamForms" />
         <PackageReference Include="System.Reactive" />
         <PackageReference Include="Xamarin.Essentials" />
         <PackageReference Include="Xamarin.Forms" />
