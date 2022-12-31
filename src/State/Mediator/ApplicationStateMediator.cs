@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
 
-namespace ApplicationState.Mediator
+namespace State.Mediator
 {
     public class ApplicationStateMediator : IApplicationStateMediator, IMediator
     {

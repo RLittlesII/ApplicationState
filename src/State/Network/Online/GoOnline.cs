@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 
-namespace ApplicationState.Network.Online
+namespace State.Network.Online
 {
     public class GoOnline : OnlineHandler
     {

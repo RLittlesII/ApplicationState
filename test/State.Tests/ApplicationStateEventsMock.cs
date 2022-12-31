@@ -1,7 +1,6 @@
 using System;
 using System.Reactive.Subjects;
-using ApplicationState;
-using ApplicationState.Application;
+using State.Application;
 
 namespace State.Tests
 {

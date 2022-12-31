@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace ApplicationState.Mediator
+namespace State.Mediator
 {
     public interface IStateEvent : INotification
     {

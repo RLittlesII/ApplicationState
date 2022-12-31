@@ -1,7 +1,7 @@
 using System;
 using System.Reactive.Linq;
 
-namespace ApplicationState.Network
+namespace State.Network
 {
     /// <summary>
     /// Interface representing the Network Connectivity.

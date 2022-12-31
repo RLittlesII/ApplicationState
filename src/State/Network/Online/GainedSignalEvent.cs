@@ -1,6 +1,6 @@
-using ApplicationState.Application;
+using State.Application;
 
-namespace ApplicationState.Network.Online
+namespace State.Network.Online
 {
     public record GainedSignalEvent : ApplicationStateEvent;
 }

@@ -1,6 +1,6 @@
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Application.Background
+namespace State.Application.Background
 {
     public abstract class BackgroundHandler : ApplicationStateHandler<StopApplicationEvent>, IBackgroundHandler { }
 }

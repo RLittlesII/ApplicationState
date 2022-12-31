@@ -1,11 +1,11 @@
 using System;
 using System.Reactive.Linq;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Mediator;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Mediator;
 
-namespace ApplicationState.Application
+namespace State.Application
 {
     public sealed class ApplicationStateMachine : ObservableStateMachine<ApplicationMachineState, ApplicationMachineTrigger>
     {

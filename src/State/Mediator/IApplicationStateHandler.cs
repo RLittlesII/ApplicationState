@@ -2,7 +2,7 @@ using System;
 using MediatR;
 using Unit = System.Reactive.Unit;
 
-namespace ApplicationState.Mediator
+namespace State.Mediator
 {
     public interface IApplicationStateHandler<in TEvent> : INotificationHandler<TEvent>
         where TEvent : IStateEvent

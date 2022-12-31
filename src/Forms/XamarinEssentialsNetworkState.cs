@@ -1,10 +1,10 @@
 using System;
 using System.Linq;
 using System.Reactive.Linq;
-using ApplicationState.Network;
+using State.Network;
 using Xamarin.Essentials;
-using NetworkAccess = ApplicationState.Network.NetworkAccess;
-using ConnectionProfile = ApplicationState.Network.ConnectionProfile;
+using NetworkAccess = State.Network.NetworkAccess;
+using ConnectionProfile = State.Network.ConnectionProfile;
 
 namespace ApplicationState
 {

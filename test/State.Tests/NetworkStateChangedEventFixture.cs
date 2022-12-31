@@ -1,6 +1,6 @@
 using System.Linq;
-using ApplicationState.Network;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
+using State.Network;
 
 namespace State.Tests
 {

@@ -1,11 +1,11 @@
 using System;
 using System.Reactive.Linq;
-using ApplicationState.Application;
-using ApplicationState.Mediator;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
+using State.Application;
+using State.Mediator;
+using State.Network.Offline;
+using State.Network.Online;
 
-namespace ApplicationState.Network
+namespace State.Network
 {
     public sealed class NetworkStateMachine : ObservableStateMachine<NetworkMachineState, NetworkMachineTrigger>
     {

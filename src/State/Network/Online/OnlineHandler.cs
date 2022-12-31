@@ -1,6 +1,6 @@
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Network.Online
+namespace State.Network.Online
 {
     public abstract class OnlineHandler : ApplicationStateHandler<GainedSignalEvent>, IOnlineHandler { }
 }

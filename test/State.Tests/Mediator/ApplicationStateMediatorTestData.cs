@@ -1,14 +1,14 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Mediator;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Mediator;
+using State.Network.Offline;
+using State.Network.Online;
 
 namespace State.Tests.Mediator;
 

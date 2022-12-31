@@ -1,8 +1,8 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Mediator;
+using State.Application.Foreground;
+using State.Mediator;
 
 namespace State.Tests.Mediator;
 

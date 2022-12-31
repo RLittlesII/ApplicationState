@@ -1,6 +1,6 @@
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Application
+namespace State.Application
 {
     public abstract record ApplicationStateEvent : IStateEvent;
 }

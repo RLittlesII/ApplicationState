@@ -1,4 +1,4 @@
-namespace ApplicationState.Network
+namespace State.Network
 {
     public enum NetworkMachineTrigger
     {

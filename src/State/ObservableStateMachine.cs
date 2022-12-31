@@ -4,7 +4,7 @@ using System.Reactive.Linq;
 using System.Reactive.Subjects;
 using Stateless;
 
-namespace ApplicationState
+namespace State
 {
     public abstract class ObservableStateMachine<TState, TTrigger> : StateMachine<TState, TTrigger>, IDisposable
     {
@@ -43,6 +43,7 @@ namespace ApplicationState
         {
             if (disposing)
             {
+                Garbage.Dispose();
             }
         }
 

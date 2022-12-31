@@ -1,8 +1,7 @@
-using ApplicationState;
-using ApplicationState.Application;
-using ApplicationState.Network;
 using NSubstitute;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
+using State.Application;
+using State.Network;
 using State.Tests.Application;
 
 namespace State.Tests;

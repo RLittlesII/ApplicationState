@@ -1,7 +1,7 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Application.Initialize;
+using State.Application.Initialize;
 
 namespace State.Tests.Mediator
 {

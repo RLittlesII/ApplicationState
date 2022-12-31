@@ -1,6 +1,6 @@
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Application.Foreground
+namespace State.Application.Foreground
 {
     public abstract class ForegroundHandler : ApplicationStateHandler<StartApplicationEvent>, IForegroundHandler { }
 }

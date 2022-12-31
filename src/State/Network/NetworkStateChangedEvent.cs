@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Network
+namespace State.Network
 {
     public class NetworkStateChangedEvent : EventArgs, IStateEvent
     {

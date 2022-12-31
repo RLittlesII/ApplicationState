@@ -1,6 +1,6 @@
-using ApplicationState.Application;
+using State.Application;
 
-namespace ApplicationState.Network.Offline
+namespace State.Network.Offline
 {
     public record LostSignalEvent : ApplicationStateEvent;
 }

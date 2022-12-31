@@ -1,7 +1,7 @@
-using ApplicationState.Application;
-using ApplicationState.Mediator;
 using NSubstitute;
 using Rocket.Surgery.Extensions.Testing.Fixtures;
+using State.Application;
+using State.Mediator;
 
 namespace State.Tests.Application
 {

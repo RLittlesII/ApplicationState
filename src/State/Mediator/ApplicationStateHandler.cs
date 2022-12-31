@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using MediatR;
 using Unit = System.Reactive.Unit;
 
-namespace ApplicationState.Mediator
+namespace State.Mediator
 {
     public class ApplicationStateHandler<TEvent> : IApplicationStateHandler<TEvent>
         where TEvent : IStateEvent

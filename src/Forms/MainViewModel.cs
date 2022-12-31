@@ -1,15 +1,16 @@
 using System;
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Application;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Network;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using ReactiveUI;
 using ReactiveUI.Fody.Helpers;
+using State;
+using State.Application;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Network;
+using State.Network.Offline;
+using State.Network.Online;
 
 namespace ApplicationState
 {
@@ -54,6 +55,6 @@ namespace ApplicationState
 
         public ReactiveCommand<Unit, Unit> Stop { get; }
 
-        public ApplicationState CurrentState { [ObservableAsProperty] get; }
+        public State.ApplicationState CurrentState { [ObservableAsProperty] get; }
     }
 }

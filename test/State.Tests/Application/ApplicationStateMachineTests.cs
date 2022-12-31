@@ -1,12 +1,12 @@
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Application;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Mediator;
 using FluentAssertions;
 using NSubstitute;
+using State.Application;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Mediator;
 using Xunit;
 
 namespace State.Tests.Application

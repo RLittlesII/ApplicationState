@@ -1,6 +1,6 @@
 using System;
 using System.Reactive.Subjects;
-using ApplicationState.Network;
+using State.Network;
 
 namespace State.Tests;
 

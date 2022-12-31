@@ -1,7 +1,7 @@
 using System;
 using System.Reactive.Disposables;
 
-namespace ApplicationState
+namespace State
 {
     public class DisposableBase : IDisposable
     {

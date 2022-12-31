@@ -1,12 +1,12 @@
 using System.Reactive;
 using System.Reactive.Linq;
-using ApplicationState.Application;
-using ApplicationState.Mediator;
-using ApplicationState.Network;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using FluentAssertions;
 using NSubstitute;
+using State.Application;
+using State.Mediator;
+using State.Network;
+using State.Network.Offline;
+using State.Network.Online;
 using State.Tests.Application;
 using Xunit;
 

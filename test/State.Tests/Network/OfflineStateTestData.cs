@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using ApplicationState.Network;
+using State.Network;
 
 namespace State.Tests.Network;
 

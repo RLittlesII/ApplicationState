@@ -1,6 +1,6 @@
-using ApplicationState.Mediator;
+using State.Mediator;
 
-namespace ApplicationState.Application.Initialize
+namespace State.Application.Initialize
 {
     public abstract class InitializationHandler : ApplicationStateHandler<InitializeApplicationEvent>, IInitializationHandler { }
 }

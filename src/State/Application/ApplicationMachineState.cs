@@ -1,4 +1,4 @@
-namespace ApplicationState.Application
+namespace State.Application
 {
     public enum ApplicationMachineState
     {
@@ -8,12 +8,12 @@ namespace ApplicationState.Application
         Initial,
 
         /// <summary>
-        /// Application in Background
+        /// Application is in Background
         /// </summary>
         Background,
 
         /// <summary>
-        /// Application in Foreground
+        /// Application is in Foreground
         /// </summary>
         Foreground,
     }

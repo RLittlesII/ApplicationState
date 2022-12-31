@@ -1,12 +1,12 @@
 using System;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Mediator;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using FluentAssertions;
 using Microsoft.Extensions.DependencyInjection;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Mediator;
+using State.Network.Offline;
+using State.Network.Online;
 using Xunit;
 
 namespace State.Tests.Mediator

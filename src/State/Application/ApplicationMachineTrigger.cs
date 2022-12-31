@@ -1,4 +1,4 @@
-namespace ApplicationState.Application
+namespace State.Application
 {
     public enum ApplicationMachineTrigger
     {

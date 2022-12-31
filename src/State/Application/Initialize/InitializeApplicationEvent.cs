@@ -1,4 +1,4 @@
-namespace ApplicationState.Application.Initialize
+namespace State.Application.Initialize
 {
     public record InitializeApplicationEvent : ApplicationStateEvent;
 }

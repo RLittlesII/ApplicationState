@@ -1,10 +1,9 @@
 using System;
-using ApplicationState;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using FluentAssertions;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Network.Offline;
+using State.Network.Online;
 using Xunit;
 
 namespace State.Tests
@@ -15,20 +14,20 @@ namespace State.Tests
         public void GivenApplicationEvents_WhenInitial_ThenDefaultApplicationState()
         {
             // Given, When
-            ApplicationState.ApplicationState? result = null;
+            ApplicationState? result = null;
             var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             sut.State.Subscribe(actual => result = actual);
 
             // Then
-            result.Should().Be(ApplicationState.ApplicationState.Default);
+            result.Should().Be(ApplicationState.Default);
         }
 
         [Fact]
         public void GivenApplicationEvents_WhenInitializedWithSignal_ThenApplicationStateCorrect()
         {
             // Given
-            ApplicationState.ApplicationState? result = null;
+            ApplicationState? result = null;
             var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             sut.State.Subscribe(actual => result = actual);
@@ -52,7 +51,7 @@ namespace State.Tests
         public void GivenConnectivity_WhenGainedSignal_ThenOnline()
         {
             // Given
-            ApplicationState.ApplicationState? result = null;
+            ApplicationState? result = null;
             var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             sut.State.Subscribe(actual => result = actual);
@@ -66,7 +65,7 @@ namespace State.Tests
                 .NotBeNull()
                 .And
                 .Subject
-                .As<ApplicationState.ApplicationState>()
+                .As<ApplicationState>()
                 .Connected
                 .Should()
                 .BeTrue();
@@ -76,7 +75,7 @@ namespace State.Tests
         public void GivenConnectivity_WhenHasNoConnection_ThenOffline()
         {
             // Given
-            ApplicationState.ApplicationState? result = null;
+            ApplicationState? result = null;
             var applicationState = new ApplicationStateEventsMock();
             ApplicationStateMonitor sut = new ApplicationStateMonitorFixture().WithState(applicationState);
             using var _ = sut.State.Subscribe(actual => result = actual);
@@ -90,7 +89,7 @@ namespace State.Tests
                 .NotBeNull()
                 .And
                 .Subject
-                .As<ApplicationState.ApplicationState>()
+                .As<ApplicationState>()
                 .Connected
                 .Should()
                 .BeFalse();

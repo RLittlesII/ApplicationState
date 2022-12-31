@@ -1,7 +1,7 @@
 using System;
-using ApplicationState.Application;
+using State.Application;
 
-namespace ApplicationState
+namespace State
 {
     /// <summary>
     /// Interface representing <see cref="ApplicationStateEvent"/> stream.

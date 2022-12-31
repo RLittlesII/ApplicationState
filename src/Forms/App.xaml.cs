@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Reactive.Subjects;
-using ApplicationState.Application;
-using ApplicationState.Application.Background;
-using ApplicationState.Application.Foreground;
-using ApplicationState.Application.Initialize;
-using ApplicationState.Mediator;
-using ApplicationState.Network;
-using ApplicationState.Network.Offline;
-using ApplicationState.Network.Online;
 using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using ReactiveMarbles.ObservableEvents;
+using State;
+using State.Application;
+using State.Application.Background;
+using State.Application.Foreground;
+using State.Application.Initialize;
+using State.Mediator;
+using State.Network;
+using State.Network.Offline;
+using State.Network.Online;
 using Xamarin.Forms.Xaml;
 
 [assembly: XamlCompilation(XamlCompilationOptions.Compile)]

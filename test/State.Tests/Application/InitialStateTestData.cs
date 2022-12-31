@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using ApplicationState.Application;
+using State.Application;
 
 namespace State.Tests.Application;
 
